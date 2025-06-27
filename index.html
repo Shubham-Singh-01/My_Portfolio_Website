@@ -748,7 +748,6 @@
                 padding: 10px;
                 border-radius: 15px;
                 backdrop-filter: none;
-                /* Disable backdrop-filter for navbar */
             }
 
             .nav-content {
@@ -767,17 +766,13 @@
                 padding: 10px 12px;
                 border-radius: 15px;
                 backdrop-filter: none;
-                /* Disable backdrop-filter */
                 transition: background 0.3s ease, color 0.3s ease;
-                /* Keep simple transitions */
             }
 
             .nav-links a:hover,
             .theme-toggle:hover {
                 transform: none;
-                /* Remove transform for performance */
                 box-shadow: none;
-                /* Remove shadow for performance */
             }
 
             .hero {
@@ -800,23 +795,26 @@
                 max-width: 280px;
                 justify-content: center;
                 transition: background 0.3s ease, color 0.3s ease;
-                /* Keep simple transitions */
             }
 
             .btn:hover {
                 transform: none;
-                /* Remove transform */
                 box-shadow: none;
-                /* Remove shadow */
             }
 
             .btn::before {
                 display: none;
-                /* Disable shine effect */
             }
 
             .section {
                 padding: 100px 16px 60px;
+            }
+
+            /* Disable animations for Projects section */
+            #projects.section {
+                opacity: 1;
+                transform: none;
+                transition: none;
             }
 
             .section-title {
@@ -833,38 +831,29 @@
             .about-text {
                 padding: 32px 24px;
                 backdrop-filter: none;
-                /* Disable backdrop-filter */
                 transition: background 0.3s ease, color 0.3s ease;
-                /* Keep simple transitions */
             }
 
             .about-text::before {
                 display: none;
-                /* Disable background animation */
             }
 
             .about-text:hover {
                 transform: none;
-                /* Remove transform */
                 box-shadow: none;
-                /* Remove shadow */
             }
 
             .profile-img {
                 width: 280px;
                 height: 280px;
                 transition: none;
-                /* Disable transitions */
             }
 
             .profile-img:hover {
                 transform: none;
-                /* Disable hover effect */
                 box-shadow: none;
-                /* Disable shadow */
             }
 
-            /* Optimized Skills Section */
             .skills-grid {
                 grid-template-columns: 1fr;
                 gap: 24px;
@@ -873,21 +862,16 @@
             .skill-category {
                 padding: 32px 24px;
                 backdrop-filter: none;
-                /* Disable backdrop-filter */
                 transition: background 0.3s ease, color 0.3s ease;
-                /* Keep simple transitions */
             }
 
             .skill-category::before {
                 display: none;
-                /* Disable background animation */
             }
 
             .skill-category:hover {
                 transform: none;
-                /* Remove transform */
                 box-shadow: none;
-                /* Remove shadow */
             }
 
             .skill-icon {
@@ -895,16 +879,12 @@
                 height: 52px;
                 font-size: 1.4rem;
                 backdrop-filter: none;
-                /* Disable backdrop-filter */
                 transition: background 0.3s ease, color 0.3s ease;
-                /* Keep simple transitions */
             }
 
             .skill-icon:hover {
                 transform: none;
-                /* Remove transform */
                 box-shadow: none;
-                /* Remove shadow */
             }
 
             /* Optimized Projects Section */
@@ -916,28 +896,24 @@
             .project-card {
                 padding: 32px 24px;
                 backdrop-filter: none;
-                /* Disable backdrop-filter */
-                transition: background 0.3s ease, color 0.3s ease;
-                /* Keep simple transitions */
+                transition: none;
+                /* Remove all transitions for smoother scrolling */
             }
 
             .project-card::before {
-                display: none;
-                /* Disable shine effect */
+                content: none;
+                /* Completely remove pseudo-element */
             }
 
             .project-card:hover {
                 transform: none;
-                /* Remove transform */
                 box-shadow: none;
-                /* Remove shadow */
             }
 
             .contact-form {
                 padding: 32px 24px;
                 margin: 0 16px;
                 backdrop-filter: none;
-                /* Disable backdrop-filter */
             }
 
             .form-group {
@@ -947,9 +923,7 @@
             .form-group input:focus,
             .form-group textarea:focus {
                 transform: none;
-                /* Remove transform */
                 box-shadow: none;
-                /* Remove shadow */
             }
 
             .social-links {
@@ -963,31 +937,24 @@
                 height: 56px;
                 font-size: 1.4rem;
                 backdrop-filter: none;
-                /* Disable backdrop-filter */
                 transition: background 0.3s ease, color 0.3s ease;
-                /* Keep simple transitions */
             }
 
             .social-link:hover {
                 transform: none;
-                /* Remove transform */
                 box-shadow: none;
-                /* Remove shadow */
             }
 
             .social-link::before {
                 display: none;
-                /* Disable tooltip */
             }
 
             .floating-shapes {
                 display: none;
-                /* Already disabled in original */
             }
 
             .scroll-indicator {
                 animation: none;
-                /* Already disabled in original */
             }
         }
 
@@ -995,7 +962,6 @@
             .navbar {
                 width: clamp(260px, 90%, 350px);
                 backdrop-filter: none;
-                /* Ensure backdrop-filter is off */
             }
 
             .nav-links a,
@@ -1006,9 +972,7 @@
                 font-size: 0.8rem;
                 border-radius: 14px;
                 backdrop-filter: none;
-                /* Ensure backdrop-filter is off */
                 transition: background 0.3s ease, color 0.3s ease;
-                /* Keep simple transitions */
             }
 
             .nav-content {
@@ -1030,7 +994,6 @@
             .about-text {
                 padding: 24px 20px;
                 backdrop-filter: none;
-                /* Ensure backdrop-filter is off */
             }
 
             .profile-img {
@@ -1041,24 +1004,25 @@
             .skill-category {
                 padding: 24px 20px;
                 backdrop-filter: none;
-                /* Ensure backdrop-filter is off */
                 transition: background 0.3s ease, color 0.3s ease;
-                /* Keep simple transitions */
             }
 
             .project-card {
                 padding: 24px 20px;
                 backdrop-filter: none;
-                /* Ensure backdrop-filter is off */
-                transition: background 0.3s ease, color 0.3s ease;
-                /* Keep simple transitions */
+                transition: none;
+                /* Ensure no transitions */
+            }
+
+            .project-card::before {
+                content: none;
+                /* Ensure pseudo-element is removed */
             }
 
             .contact-form {
                 padding: 24px 20px;
                 margin: 0 12px;
                 backdrop-filter: none;
-                /* Ensure backdrop-filter is off */
             }
         }
     </style>
@@ -1280,6 +1244,18 @@
     </section>
 
     <script>
+        // Throttle function to limit scroll event frequency
+        function throttle(func, limit) {
+            let inThrottle;
+            return function (...args) {
+                if (!inThrottle) {
+                    func.apply(this, args);
+                    inThrottle = true;
+                    setTimeout(() => (inThrottle = false), limit);
+                }
+            };
+        }
+
         // Theme toggle functionality
         function toggleTheme() {
             const body = document.body;
@@ -1308,8 +1284,8 @@
             });
         });
 
-        // Parallax effect for background elements
-        window.addEventListener('scroll', () => {
+        // Parallax effect for background elements (throttled)
+        const handleScroll = throttle(() => {
             const scrolled = window.pageYOffset;
             const rate = scrolled * -0.5;
 
@@ -1331,7 +1307,9 @@
                 const speed = (index + 1) * 0.2;
                 shape.style.transform += ` translateY(${scrolled * speed}px)`;
             });
-        });
+        }, 100); // Throttle to 100ms
+
+        window.addEventListener('scroll', handleScroll);
 
         // Intersection Observer for animations
         const observerOptions = {
@@ -1341,7 +1319,7 @@
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
+                if (entry.isIntersecting && window.innerWidth > 768) { // Disable animations on mobile
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
                 }
@@ -1350,9 +1328,11 @@
 
         // Observe all sections for scroll animations
         document.querySelectorAll('.section').forEach(section => {
-            section.style.opacity = '0';
-            section.style.transform = 'translateY(30px)';
-            section.style.transition = 'all 0.8s ease-out';
+            if (window.innerWidth > 768) { // Only apply initial styles on desktop
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                section.style.transition = 'all 0.8s ease-out';
+            }
             observer.observe(section);
         });
 
@@ -1495,7 +1475,7 @@
             }
         });
 
-        // Add random floating particles
+        // Add random floating particles (only for desktop)
         function createParticle() {
             const particle = document.createElement('div');
             particle.style.cssText = `
@@ -1540,8 +1520,10 @@
 `;
         document.head.appendChild(particleStyle);
 
-        // Create particles periodically
-        setInterval(createParticle, 2000);
+        // Create particles periodically (only for desktop)
+        if (window.innerWidth > 768) {
+            setInterval(createParticle, 2000);
+        }
 
         // Initialize theme based on user preference
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
