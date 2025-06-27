@@ -736,7 +736,12 @@
         }
 
         /* Mobile Styles */
+/* Mobile Styles */
         @media (max-width: 768px) {
+            .hero {
+                height: 85vh;
+            }
+
             .navbar {
                 top: auto;
                 bottom: 20px;
@@ -760,6 +765,13 @@
                 font-size: 1rem;
                 padding: 10px 12px;
                 border-radius: 15px;
+                transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease; /* Restore subtle hover transform */
+            }
+
+            .nav-links a:hover,
+            .theme-toggle:hover {
+                transform: translateY(-2px); /* Restore subtle hover effect */
+                box-shadow: none; /* Keep shadow off for performance */
             }
 
             .hero {
@@ -774,12 +786,23 @@
                 flex-direction: column;
                 align-items: center;
                 gap: 16px;
+                animation: fadeInUp 1s ease-out 1.5s both; /* Restore fade-in animation */
             }
 
             .btn {
                 width: 100%;
                 max-width: 280px;
                 justify-content: center;
+                transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease; /* Restore subtle hover transform */
+            }
+
+            .btn:hover {
+                transform: translateY(-2px); /* Restore subtle hover effect */
+                box-shadow: none; /* Keep shadow off for performance */
+            }
+
+            .btn::before {
+                display: none; /* Keep shine effect off */
             }
 
             .section {
@@ -788,6 +811,7 @@
 
             .section-title {
                 margin-bottom: 60px;
+                animation: fadeInUp 1s ease-out 0.5s both; /* Restore fade-in animation */
             }
 
             .about-content {
@@ -798,11 +822,27 @@
 
             .about-text {
                 padding: 32px 24px;
+                transition: transform 0.3s ease; /* Restore subtle transition */
+            }
+
+            .about-text::before {
+                display: none; /* Keep background animation off */
+            }
+
+            .about-text:hover {
+                transform: translateY(-4px); /* Restore subtle hover effect */
+                box-shadow: none; /* Keep shadow off */
             }
 
             .profile-img {
                 width: 280px;
                 height: 280px;
+                transition: none; /* Keep transform off for performance */
+            }
+
+            .profile-img:hover {
+                transform: none; /* Keep hover effect off */
+                box-shadow: none; /* Keep shadow off */
             }
 
             .skills-grid {
@@ -812,24 +852,28 @@
 
             .skill-category {
                 padding: 32px 24px;
-            }
-
-            .skill-category:hover {
-                transform: none;
+                transition: transform 0.3s ease; /* Restore subtle transition */
             }
 
             .skill-category::before {
-                display: none;
+                display: none; /* Keep background animation off */
+            }
+
+            .skill-category:hover {
+                transform: translateY(-4px); /* Restore subtle hover effect */
+                box-shadow: none; /* Keep shadow off */
             }
 
             .skill-icon {
                 width: 52px;
                 height: 52px;
                 font-size: 1.4rem;
+                transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease; /* Restore subtle hover transform */
             }
 
             .skill-icon:hover {
-                transform: translateY(-2px);
+                transform: translateY(-2px); /* Restore subtle hover effect */
+                box-shadow: none; /* Keep shadow off */
             }
 
             .projects-grid {
@@ -839,10 +883,16 @@
 
             .project-card {
                 padding: 32px 24px;
+                transition: transform 0.3s ease; /* Restore subtle transition */
+            }
+
+            .project-card::before {
+                display: none; /* Keep shine effect off */
             }
 
             .project-card:hover {
-                transform: translateY(-4px);
+                transform: translateY(-4px); /* Restore subtle hover effect */
+                box-shadow: none; /* Keep shadow off */
             }
 
             .contact-form {
@@ -854,19 +904,40 @@
                 margin-bottom: 24px;
             }
 
+            .form-group input:focus,
+            .form-group textarea:focus {
+                transform: translateY(-2px); /* Restore subtle focus transform */
+                box-shadow: none; /* Keep shadow off */
+            }
+
             .social-links {
                 gap: 20px;
                 margin-top: 40px;
+                margin-bottom: 80px;
             }
 
             .social-link {
                 width: 56px;
                 height: 56px;
                 font-size: 1.4rem;
+                transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease; /* Restore subtle hover transform */
+            }
+
+            .social-link:hover {
+                transform: translateY(-2px); /* Restore subtle hover effect */
+                box-shadow: none; /* Keep shadow off */
+            }
+
+            .social-link::before {
+                display: none; /* Keep tooltip off */
             }
 
             .floating-shapes {
-                display: none;
+                display: none; /* Keep off as in original */
+            }
+
+            .scroll-indicator {
+                animation: none; /* Keep bounce animation off */
             }
         }
 
@@ -882,6 +953,7 @@
                 padding: 8px 10px;
                 font-size: 0.8rem;
                 border-radius: 14px;
+                transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease; /* Restore subtle hover transform */
             }
 
             .nav-content {
