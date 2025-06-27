@@ -747,6 +747,8 @@
                 width: clamp(280px, 90%, 380px);
                 padding: 10px;
                 border-radius: 15px;
+                backdrop-filter: none;
+                /* Disable backdrop-filter for navbar */
             }
 
             .nav-content {
@@ -764,16 +766,18 @@
                 font-size: 1rem;
                 padding: 10px 12px;
                 border-radius: 15px;
-                transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
-                /* Restore subtle hover transform */
+                backdrop-filter: none;
+                /* Disable backdrop-filter */
+                transition: background 0.3s ease, color 0.3s ease;
+                /* Keep simple transitions */
             }
 
             .nav-links a:hover,
             .theme-toggle:hover {
-                transform: translateY(-2px);
-                /* Restore subtle hover effect */
+                transform: none;
+                /* Remove transform for performance */
                 box-shadow: none;
-                /* Keep shadow off for performance */
+                /* Remove shadow for performance */
             }
 
             .hero {
@@ -789,27 +793,26 @@
                 align-items: center;
                 gap: 16px;
                 animation: fadeInUp 1s ease-out 1.5s both;
-                /* Restore fade-in animation */
             }
 
             .btn {
                 width: 100%;
                 max-width: 280px;
                 justify-content: center;
-                transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
-                /* Restore subtle hover transform */
+                transition: background 0.3s ease, color 0.3s ease;
+                /* Keep simple transitions */
             }
 
             .btn:hover {
-                transform: translateY(-2px);
-                /* Restore subtle hover effect */
+                transform: none;
+                /* Remove transform */
                 box-shadow: none;
-                /* Keep shadow off for performance */
+                /* Remove shadow */
             }
 
             .btn::before {
                 display: none;
-                /* Keep shine effect off */
+                /* Disable shine effect */
             }
 
             .section {
@@ -819,7 +822,6 @@
             .section-title {
                 margin-bottom: 60px;
                 animation: fadeInUp 1s ease-out 0.5s both;
-                /* Restore fade-in animation */
             }
 
             .about-content {
@@ -830,36 +832,39 @@
 
             .about-text {
                 padding: 32px 24px;
-                transition: transform 0.3s ease;
-                /* Restore subtle transition */
+                backdrop-filter: none;
+                /* Disable backdrop-filter */
+                transition: background 0.3s ease, color 0.3s ease;
+                /* Keep simple transitions */
             }
 
             .about-text::before {
                 display: none;
-                /* Keep background animation off */
+                /* Disable background animation */
             }
 
             .about-text:hover {
-                transform: translateY(-4px);
-                /* Restore subtle hover effect */
+                transform: none;
+                /* Remove transform */
                 box-shadow: none;
-                /* Keep shadow off */
+                /* Remove shadow */
             }
 
             .profile-img {
                 width: 280px;
                 height: 280px;
                 transition: none;
-                /* Keep transform off for performance */
+                /* Disable transitions */
             }
 
             .profile-img:hover {
                 transform: none;
-                /* Keep hover effect off */
+                /* Disable hover effect */
                 box-shadow: none;
-                /* Keep shadow off */
+                /* Disable shadow */
             }
 
+            /* Optimized Skills Section */
             .skills-grid {
                 grid-template-columns: 1fr;
                 gap: 24px;
@@ -867,30 +872,42 @@
 
             .skill-category {
                 padding: 32px 24px;
-                transition: none; /* Remove transition */
+                backdrop-filter: none;
+                /* Disable backdrop-filter */
+                transition: background 0.3s ease, color 0.3s ease;
+                /* Keep simple transitions */
             }
 
             .skill-category::before {
-                display: none; /* Remove background animation */
+                display: none;
+                /* Disable background animation */
             }
 
             .skill-category:hover {
-                transform: none; /* Remove hover transform */
-                box-shadow: none; /* Remove hover shadow */
+                transform: none;
+                /* Remove transform */
+                box-shadow: none;
+                /* Remove shadow */
             }
 
             .skill-icon {
                 width: 52px;
                 height: 52px;
                 font-size: 1.4rem;
-                transition: background 0.3s ease, color 0.3s ease; /* Keep only essential transitions */
+                backdrop-filter: none;
+                /* Disable backdrop-filter */
+                transition: background 0.3s ease, color 0.3s ease;
+                /* Keep simple transitions */
             }
 
             .skill-icon:hover {
-                transform: none; /* Remove hover transform */
-                box-shadow: none; /* Remove hover shadow */
+                transform: none;
+                /* Remove transform */
+                box-shadow: none;
+                /* Remove shadow */
             }
 
+            /* Optimized Projects Section */
             .projects-grid {
                 grid-template-columns: 1fr;
                 gap: 32px;
@@ -898,21 +915,29 @@
 
             .project-card {
                 padding: 32px 24px;
-                transition: none; /* Remove transition */
+                backdrop-filter: none;
+                /* Disable backdrop-filter */
+                transition: background 0.3s ease, color 0.3s ease;
+                /* Keep simple transitions */
             }
 
             .project-card::before {
-                display: none; /* Remove shine effect */
+                display: none;
+                /* Disable shine effect */
             }
 
             .project-card:hover {
-                transform: none; /* Remove hover transform */
-                box-shadow: none; /* Remove hover shadow */
+                transform: none;
+                /* Remove transform */
+                box-shadow: none;
+                /* Remove shadow */
             }
 
             .contact-form {
                 padding: 32px 24px;
-                margin: 50 16px;
+                margin: 0 16px;
+                backdrop-filter: none;
+                /* Disable backdrop-filter */
             }
 
             .form-group {
@@ -921,10 +946,10 @@
 
             .form-group input:focus,
             .form-group textarea:focus {
-                transform: translateY(-2px);
-                /* Restore subtle focus transform */
+                transform: none;
+                /* Remove transform */
                 box-shadow: none;
-                /* Keep shadow off */
+                /* Remove shadow */
             }
 
             .social-links {
@@ -937,36 +962,40 @@
                 width: 56px;
                 height: 56px;
                 font-size: 1.4rem;
-                transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
-                /* Restore subtle hover transform */
+                backdrop-filter: none;
+                /* Disable backdrop-filter */
+                transition: background 0.3s ease, color 0.3s ease;
+                /* Keep simple transitions */
             }
 
             .social-link:hover {
-                transform: translateY(-2px);
-                /* Restore subtle hover effect */
+                transform: none;
+                /* Remove transform */
                 box-shadow: none;
-                /* Keep shadow off */
+                /* Remove shadow */
             }
 
             .social-link::before {
                 display: none;
-                /* Keep tooltip off */
+                /* Disable tooltip */
             }
 
             .floating-shapes {
                 display: none;
-                /* Keep off as in original */
+                /* Already disabled in original */
             }
 
             .scroll-indicator {
                 animation: none;
-                /* Keep bounce animation off */
+                /* Already disabled in original */
             }
         }
 
         @media (max-width: 480px) {
             .navbar {
-                width: clamp(260px, 700%, 350px);
+                width: clamp(260px, 90%, 350px);
+                backdrop-filter: none;
+                /* Ensure backdrop-filter is off */
             }
 
             .nav-links a,
@@ -976,8 +1005,10 @@
                 padding: 8px 10px;
                 font-size: 0.8rem;
                 border-radius: 14px;
-                transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
-                /* Restore subtle hover transform */
+                backdrop-filter: none;
+                /* Ensure backdrop-filter is off */
+                transition: background 0.3s ease, color 0.3s ease;
+                /* Keep simple transitions */
             }
 
             .nav-content {
@@ -998,6 +1029,8 @@
 
             .about-text {
                 padding: 24px 20px;
+                backdrop-filter: none;
+                /* Ensure backdrop-filter is off */
             }
 
             .profile-img {
@@ -1007,15 +1040,25 @@
 
             .skill-category {
                 padding: 24px 20px;
+                backdrop-filter: none;
+                /* Ensure backdrop-filter is off */
+                transition: background 0.3s ease, color 0.3s ease;
+                /* Keep simple transitions */
             }
 
             .project-card {
                 padding: 24px 20px;
+                backdrop-filter: none;
+                /* Ensure backdrop-filter is off */
+                transition: background 0.3s ease, color 0.3s ease;
+                /* Keep simple transitions */
             }
 
             .contact-form {
                 padding: 24px 20px;
                 margin: 0 12px;
+                backdrop-filter: none;
+                /* Ensure backdrop-filter is off */
             }
         }
     </style>
@@ -1336,26 +1379,34 @@
             });
         });
 
-        // Project card tilt effect
-        document.querySelectorAll('.project-card').forEach(card => {
-            card.addEventListener('mousemove', function (e) {
-                const rect = this.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
+        // Project card tilt effect (only for desktop)
+        function applyProjectCardTilt() {
+            if (window.innerWidth > 768) {
+                document.querySelectorAll('.project-card').forEach(card => {
+                    card.addEventListener('mousemove', function (e) {
+                        const rect = this.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
 
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
 
-                const rotateX = (y - centerY) / 10;
-                const rotateY = (centerX - x) / 10;
+                        const rotateX = (y - centerY) / 10;
+                        const rotateY = (centerX - x) / 10;
 
-                this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
-            });
+                        this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+                    });
 
-            card.addEventListener('mouseleave', function () {
-                this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-            });
-        });
+                    card.addEventListener('mouseleave', function () {
+                        this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+                    });
+                });
+            }
+        }
+
+        // Apply tilt effect on load and on window resize
+        applyProjectCardTilt();
+        window.addEventListener('resize', applyProjectCardTilt);
 
         // Contact form handling
         document.querySelector('form').addEventListener('submit', function (e) {
@@ -1412,26 +1463,26 @@
         // Add pulse animation keyframes dynamically
         const style = document.createElement('style');
         style.textContent = `
-            @keyframes pulse {
-                0%, 100% { transform: scale(1); }
-                50% { transform: scale(1.1); }
-            }
-            
-            .animate-in {
-                animation: slideInUp 0.8s ease-out forwards;
-            }
-            
-            @keyframes slideInUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(30px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-        `;
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+    
+    .animate-in {
+        animation: slideInUp 0.8s ease-out forwards;
+    }
+    
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+`;
         document.head.appendChild(style);
 
         // Enhanced scroll indicator
@@ -1448,17 +1499,17 @@
         function createParticle() {
             const particle = document.createElement('div');
             particle.style.cssText = `
-                position: fixed;
-                width: 4px;
-                height: 4px;
-                background: var(--primary-color);
-                border-radius: 50%;
-                pointer-events: none;
-                opacity: 0.3;
-                z-index: -1;
-                left: ${Math.random() * 100}vw;
-                animation: particleFloat ${5 + Math.random() * 10}s linear infinite;
-            `;
+        position: fixed;
+        width: 4px;
+        height: 4px;
+        background: var(--primary-color);
+        border-radius: 50%;
+        pointer-events: none;
+        opacity: 0.3;
+        z-index: -1;
+        left: ${Math.random() * 100}vw;
+        animation: particleFloat ${5 + Math.random() * 10}s linear infinite;
+    `;
 
             document.body.appendChild(particle);
 
@@ -1470,23 +1521,23 @@
         // Add particle animation
         const particleStyle = document.createElement('style');
         particleStyle.textContent = `
-            @keyframes particleFloat {
-                from {
-                    transform: translateY(100vh) rotate(0deg);
-                    opacity: 0;
-                }
-                10% {
-                    opacity: 0.3;
-                }
-                90% {
-                    opacity: 0.3;
-                }
-                to {
-                    transform: translateY(-100px) rotate(360deg);
-                    opacity: 0;
-                }
-            }
-        `;
+    @keyframes particleFloat {
+        from {
+            transform: translateY(100vh) rotate(0deg);
+            opacity: 0;
+        }
+        10% {
+            opacity: 0.3;
+        }
+        90% {
+            opacity: 0.3;
+        }
+        to {
+            transform: translateY(-100px) rotate(360deg);
+            opacity: 0;
+        }
+    }
+`;
         document.head.appendChild(particleStyle);
 
         // Create particles periodically
