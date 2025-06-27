@@ -736,7 +736,6 @@
         }
 
         /* Mobile Styles */
-/* Mobile Styles */
         @media (max-width: 768px) {
             .hero {
                 height: 85vh;
@@ -765,13 +764,16 @@
                 font-size: 1rem;
                 padding: 10px 12px;
                 border-radius: 15px;
-                transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease; /* Restore subtle hover transform */
+                transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+                /* Restore subtle hover transform */
             }
 
             .nav-links a:hover,
             .theme-toggle:hover {
-                transform: translateY(-2px); /* Restore subtle hover effect */
-                box-shadow: none; /* Keep shadow off for performance */
+                transform: translateY(-2px);
+                /* Restore subtle hover effect */
+                box-shadow: none;
+                /* Keep shadow off for performance */
             }
 
             .hero {
@@ -786,23 +788,28 @@
                 flex-direction: column;
                 align-items: center;
                 gap: 16px;
-                animation: fadeInUp 1s ease-out 1.5s both; /* Restore fade-in animation */
+                animation: fadeInUp 1s ease-out 1.5s both;
+                /* Restore fade-in animation */
             }
 
             .btn {
                 width: 100%;
                 max-width: 280px;
                 justify-content: center;
-                transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease; /* Restore subtle hover transform */
+                transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+                /* Restore subtle hover transform */
             }
 
             .btn:hover {
-                transform: translateY(-2px); /* Restore subtle hover effect */
-                box-shadow: none; /* Keep shadow off for performance */
+                transform: translateY(-2px);
+                /* Restore subtle hover effect */
+                box-shadow: none;
+                /* Keep shadow off for performance */
             }
 
             .btn::before {
-                display: none; /* Keep shine effect off */
+                display: none;
+                /* Keep shine effect off */
             }
 
             .section {
@@ -811,7 +818,8 @@
 
             .section-title {
                 margin-bottom: 60px;
-                animation: fadeInUp 1s ease-out 0.5s both; /* Restore fade-in animation */
+                animation: fadeInUp 1s ease-out 0.5s both;
+                /* Restore fade-in animation */
             }
 
             .about-content {
@@ -822,27 +830,34 @@
 
             .about-text {
                 padding: 32px 24px;
-                transition: transform 0.3s ease; /* Restore subtle transition */
+                transition: transform 0.3s ease;
+                /* Restore subtle transition */
             }
 
             .about-text::before {
-                display: none; /* Keep background animation off */
+                display: none;
+                /* Keep background animation off */
             }
 
             .about-text:hover {
-                transform: translateY(-4px); /* Restore subtle hover effect */
-                box-shadow: none; /* Keep shadow off */
+                transform: translateY(-4px);
+                /* Restore subtle hover effect */
+                box-shadow: none;
+                /* Keep shadow off */
             }
 
             .profile-img {
                 width: 280px;
                 height: 280px;
-                transition: none; /* Keep transform off for performance */
+                transition: none;
+                /* Keep transform off for performance */
             }
 
             .profile-img:hover {
-                transform: none; /* Keep hover effect off */
-                box-shadow: none; /* Keep shadow off */
+                transform: none;
+                /* Keep hover effect off */
+                box-shadow: none;
+                /* Keep shadow off */
             }
 
             .skills-grid {
@@ -852,28 +867,28 @@
 
             .skill-category {
                 padding: 32px 24px;
-                transition: transform 0.3s ease; /* Restore subtle transition */
+                transition: none; /* Remove transition */
             }
 
             .skill-category::before {
-                display: none; /* Keep background animation off */
+                display: none; /* Remove background animation */
             }
 
             .skill-category:hover {
-                transform: translateY(-4px); /* Restore subtle hover effect */
-                box-shadow: none; /* Keep shadow off */
+                transform: none; /* Remove hover transform */
+                box-shadow: none; /* Remove hover shadow */
             }
 
             .skill-icon {
                 width: 52px;
                 height: 52px;
                 font-size: 1.4rem;
-                transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease; /* Restore subtle hover transform */
+                transition: background 0.3s ease, color 0.3s ease; /* Keep only essential transitions */
             }
 
             .skill-icon:hover {
-                transform: translateY(-2px); /* Restore subtle hover effect */
-                box-shadow: none; /* Keep shadow off */
+                transform: none; /* Remove hover transform */
+                box-shadow: none; /* Remove hover shadow */
             }
 
             .projects-grid {
@@ -883,16 +898,16 @@
 
             .project-card {
                 padding: 32px 24px;
-                transition: transform 0.3s ease; /* Restore subtle transition */
+                transition: none; /* Remove transition */
             }
 
             .project-card::before {
-                display: none; /* Keep shine effect off */
+                display: none; /* Remove shine effect */
             }
 
             .project-card:hover {
-                transform: translateY(-4px); /* Restore subtle hover effect */
-                box-shadow: none; /* Keep shadow off */
+                transform: none; /* Remove hover transform */
+                box-shadow: none; /* Remove hover shadow */
             }
 
             .contact-form {
@@ -906,8 +921,10 @@
 
             .form-group input:focus,
             .form-group textarea:focus {
-                transform: translateY(-2px); /* Restore subtle focus transform */
-                box-shadow: none; /* Keep shadow off */
+                transform: translateY(-2px);
+                /* Restore subtle focus transform */
+                box-shadow: none;
+                /* Keep shadow off */
             }
 
             .social-links {
@@ -920,24 +937,30 @@
                 width: 56px;
                 height: 56px;
                 font-size: 1.4rem;
-                transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease; /* Restore subtle hover transform */
+                transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+                /* Restore subtle hover transform */
             }
 
             .social-link:hover {
-                transform: translateY(-2px); /* Restore subtle hover effect */
-                box-shadow: none; /* Keep shadow off */
+                transform: translateY(-2px);
+                /* Restore subtle hover effect */
+                box-shadow: none;
+                /* Keep shadow off */
             }
 
             .social-link::before {
-                display: none; /* Keep tooltip off */
+                display: none;
+                /* Keep tooltip off */
             }
 
             .floating-shapes {
-                display: none; /* Keep off as in original */
+                display: none;
+                /* Keep off as in original */
             }
 
             .scroll-indicator {
-                animation: none; /* Keep bounce animation off */
+                animation: none;
+                /* Keep bounce animation off */
             }
         }
 
@@ -953,7 +976,8 @@
                 padding: 8px 10px;
                 font-size: 0.8rem;
                 border-radius: 14px;
-                transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease; /* Restore subtle hover transform */
+                transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+                /* Restore subtle hover transform */
             }
 
             .nav-content {
