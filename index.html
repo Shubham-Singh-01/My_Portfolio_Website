@@ -887,7 +887,7 @@
                 box-shadow: none;
             }
 
-            /* Optimized Projects Section to match Skills */
+            /* Optimized Projects Section */
             .projects-grid {
                 grid-template-columns: 1fr;
                 gap: 32px;
@@ -895,19 +895,23 @@
 
             .project-card {
                 padding: 32px 24px;
-                border-radius: 20px;
-                /* Match skill-category */
-                background: var(--glass-bg);
-                /* Match skill-category */
+                background: rgba(15, 23, 42, 0.1);
+                /* Lightweight solid background for dark theme */
                 border: 1px solid var(--glass-border);
-                /* Match skill-category */
+                border-radius: 8px;
+                /* Reduced for performance */
                 transition: none;
-                /* Keep for performance */
+                /* Remove all transitions */
+            }
+
+            [data-theme="light"] .project-card {
+                background: rgba(255, 255, 255, 0.1);
+                /* Lightweight solid background for light theme */
             }
 
             .project-card::before {
                 content: none;
-                /* Remove pseudo-element */
+                /* Remove pseudo-element entirely */
             }
 
             .project-card:hover {
@@ -915,32 +919,25 @@
                 box-shadow: none;
             }
 
-            .project-description {
-                opacity: 1;
-                /* Keep for performance */
-                color: var(--text-color);
-            }
-
-            .project-tech {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 12px;
-                margin-bottom: 24px;
-            }
-
             .tech-tag {
                 padding: 8px 16px;
-                border-radius: 8px;
                 background: rgba(255, 255, 255, 0.1);
-                /* Consistent with skill-icon */
-                border: none;
+                border-radius: 8px;
+                /* Reduced for performance */
                 font-size: 0.9rem;
-                opacity: 1;
-                color: var(--text-color);
+                border: none;
+                /* Remove border for performance */
+                transition: none;
+                /* Remove transitions */
             }
 
             [data-theme="light"] .tech-tag {
                 background: rgba(0, 0, 0, 0.1);
+            }
+
+            .project-links .btn {
+                transition: none;
+                /* Remove transitions for buttons */
             }
 
             .contact-form {
@@ -1042,27 +1039,29 @@
 
             .project-card {
                 padding: 24px 20px;
-                border-radius: 20px;
-                /* Match skill-category */
-                background: var(--glass-bg);
-                /* Match skill-category */
+                background: rgba(15, 23, 42, 0.1);
                 border: 1px solid var(--glass-border);
-                /* Match skill-category */
+                border-radius: 8px;
                 transition: none;
             }
 
-            .project-card::before {
-                content: none;
+            [data-theme="light"] .project-card {
+                background: rgba(255, 255, 255, 0.1);
             }
 
             .tech-tag {
+                background: rgba(255, 255, 255, 0.1);
                 border-radius: 8px;
                 border: none;
-                background: rgba(255, 255, 255, 0.1);
+                transition: none;
             }
 
             [data-theme="light"] .tech-tag {
                 background: rgba(0, 0, 0, 0.1);
+            }
+
+            .project-links .btn {
+                transition: none;
             }
 
             .contact-form {
@@ -1364,6 +1363,7 @@
             });
         }, 100);
 
+        // Observe scroll event
         window.addEventListener('scroll', handleScroll);
 
         // Intersection Observer for animations
@@ -1374,21 +1374,25 @@
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting && window.innerWidth > 768) { // Disable animations on mobile
+                if (entry.isIntersecting && entry.target.id !== 'projects') { // Skip Projects section
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
                 }
             });
         }, observerOptions);
 
-        // Observe all sections for scroll animations
+        // Observe all sections except Projects for scroll animations
         document.querySelectorAll('.section').forEach(section => {
-            if (window.innerWidth > 768) { // Only apply initial styles on desktop
+            if (section.id !== 'projects') { // Exclude Projects section
                 section.style.opacity = '0';
                 section.style.transform = 'translateY(30px)';
                 section.style.transition = 'all 0.8s ease-out';
+                observer.observe(section);
+            } else {
+                section.style.opacity = '1'; // Static styles for Projects
+                section.style.transform = 'none';
+                section.style.transition = 'none';
             }
-            observer.observe(section);
         });
 
         // Navbar background on scroll
@@ -1530,7 +1534,19 @@
             }
         });
 
-        // Add random floating particles (only for desktop)
+        // Add random floating particles (paused when Projects is in view)
+        let particleInterval = null;
+        function startParticles() {
+            if (!particleInterval) {
+                particleInterval = setInterval(createParticle, 2000);
+            }
+        }
+        function stopParticles() {
+            if (particleInterval) {
+                clearInterval(particleInterval);
+                particleInterval = null;
+            }
+        }
         function createParticle() {
             const particle = document.createElement('div');
             particle.style.cssText = `
@@ -1575,9 +1591,22 @@
 `;
         document.head.appendChild(particleStyle);
 
-        // Create particles periodically (only for desktop)
+        // Control particles based on Projects section visibility
+        window.addEventListener('scroll', () => {
+            const projectsSection = document.querySelector('#projects');
+            const rect = projectsSection.getBoundingClientRect();
+            const isProjectsInView = rect.top < window.innerHeight && rect.bottom > 0;
+
+            if (window.innerWidth <= 768 && isProjectsInView) {
+                stopParticles();
+            } else {
+                startParticles();
+            }
+        });
+
+        // Start particles initially if not in mobile Projects view
         if (window.innerWidth > 768) {
-            setInterval(createParticle, 2000);
+            startParticles();
         }
 
         // Initialize theme based on user preference
