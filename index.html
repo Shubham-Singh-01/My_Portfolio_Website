@@ -13,18 +13,53 @@
             box-sizing: border-box;
         }
 
+        /* Performance optimizations for smoother animations */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            -webkit-tap-highlight-color: transparent; /* Remove touch highlight */
+        }
+        
+        /* Enable hardware acceleration for smooth transforms */
+        .navbar,
+        .nav-links a,
+        .theme-toggle,
+        .btn {
+            backface-visibility: hidden;
+            perspective: 1000px;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+        }
+
+        /* Touch optimizations for mobile */
+        @media (hover: none) and (pointer: coarse) {
+            .nav-links a,
+            .theme-toggle {
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                user-select: none;
+            }
+        }
+
         :root {
-            --primary-color: #6366f1;
-            --secondary-color: #8b5cf6;
-            --accent-color: #06b6d4;
-            --text-light: #f8fafc;
-            --text-dark: #1e293b;
+            --primary-color: #1a1a1a;
+            --secondary-color: #333333;
+            --accent-color: #666666;
+            --text-light: #ffffff;
+            --text-dark: #1a1a1a;
             --bg-light: #ffffff;
-            --bg-dark: #0f172a;
+            --bg-dark: #0a0a0a;
             --glass-bg: rgba(255, 255, 255, 0.08);
             --glass-border: rgba(255, 255, 255, 0.15);
             --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             --glass-blur: blur(15px);
+            --highlight-light: #f5f5f5;
+            --highlight-dark: #1f1f1f;
         }
 
         [data-theme="dark"] {
@@ -32,6 +67,10 @@
             --bg-color: var(--bg-dark);
             --glass-bg: rgba(255, 255, 255, 0.05);
             --glass-border: rgba(255, 255, 255, 0.1);
+            --primary-color: #ffffff;
+            --secondary-color: #e5e5e5;
+            --accent-color: #cccccc;
+            --highlight-color: var(--highlight-dark);
         }
 
         [data-theme="light"] {
@@ -39,6 +78,10 @@
             --bg-color: var(--bg-light);
             --glass-bg: rgba(0, 0, 0, 0.05);
             --glass-border: rgba(0, 0, 0, 0.1);
+            --primary-color: #1a1a1a;
+            --secondary-color: #333333;
+            --accent-color: #666666;
+            --highlight-color: var(--highlight-light);
         }
 
         body {
@@ -53,7 +96,7 @@
         .glass {
             background: var(--glass-bg);
             backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--glass-border);
+            border: 0.5px solid var(--glass-border);
             border-radius: 16px;
             box-shadow: var(--glass-shadow);
         }
@@ -71,7 +114,8 @@
             backdrop-filter: var(--glass-blur);
             border: .5px solid var(--glass-border);
             box-shadow: var(--glass-shadow);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform, opacity, backdrop-filter;
         }
 
         .nav-content {
@@ -97,20 +141,28 @@
             background: var(--glass-bg);
             border: .3px solid var(--glass-border);
             border-radius: 15px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             backdrop-filter: var(--glass-blur);
             display: flex;
             align-items: center;
             justify-content: center;
             min-width: 55px;
             height: 40px;
+            position: relative;
+            overflow: hidden;
+            transform: translateZ(0); /* Hardware acceleration */
+            will-change: transform, box-shadow;
         }
 
         .nav-links a:hover {
-            background: var(--primary-color);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+            transform: translateY(-4px) scale(1.05) translateZ(0);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .nav-links a:active {
+            transform: translateY(-1px) scale(1.02) translateZ(0);
+            transition: all 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .theme-toggle {
@@ -120,7 +172,7 @@
             padding: 12px 16px;
             color: var(--text-color);
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             backdrop-filter: var(--glass-blur);
             font-size: 1rem;
             min-width: 55px;
@@ -128,13 +180,21 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            overflow: hidden;
+            transform: translateZ(0); /* Hardware acceleration */
+            will-change: transform, box-shadow;
         }
 
         .theme-toggle:hover {
-            transform: translateY(-2px);
-            background: var(--primary-color);
-            color: white;
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+            transform: translateY(-4px) scale(1.05) translateZ(0);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .theme-toggle:active {
+            transform: translateY(-1px) scale(1.02) translateZ(0);
+            transition: all 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .hero {
@@ -150,59 +210,8 @@
         .hero-bg {
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
-            opacity: 0.08;
-            z-index: -2;
-        }
-
-        .floating-shapes {
-            position: absolute;
-            inset: 0;
+            background: transparent;
             z-index: -1;
-        }
-
-        .shape {
-            position: absolute;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            opacity: 0.06;
-            animation: float 8s ease-in-out infinite;
-        }
-
-        .shape:nth-child(1) {
-            width: 120px;
-            height: 120px;
-            top: 20%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .shape:nth-child(2) {
-            width: 180px;
-            height: 180px;
-            top: 60%;
-            right: 20%;
-            animation-delay: 2.5s;
-        }
-
-        .shape:nth-child(3) {
-            width: 100px;
-            height: 100px;
-            bottom: 20%;
-            left: 20%;
-            animation-delay: 5s;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0px) rotate(0deg);
-            }
-
-            50% {
-                transform: translateY(-30px) rotate(180deg);
-            }
         }
 
         .hero-content {
@@ -210,6 +219,22 @@
             z-index: 1;
             max-width: 900px;
             width: 100%;
+        }
+
+        .hero-greeting {
+            font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: var(--text-color);
+            opacity: 0;
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out 0.2s forwards;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-greeting:hover {
+            transform: translateY(-1px);
+            transition: transform 0.3s ease;
         }
 
         .hero-title {
@@ -220,16 +245,17 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: titleGlow 4s ease-in-out infinite alternate;
+            animation: titleGlow 4s ease-in-out infinite alternate,
+                       fadeInUp 1s ease-out 0.6s both;
         }
 
         @keyframes titleGlow {
             from {
-                filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.2));
+                filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.1));
             }
 
             to {
-                filter: drop-shadow(0 0 16px rgba(99, 102, 241, 0.4));
+                filter: drop-shadow(0 0 16px rgba(0, 0, 0, 0.2));
             }
         }
 
@@ -237,7 +263,7 @@
             font-size: clamp(1.4rem, 3vw, 1.8rem);
             margin-bottom: 32px;
             opacity: 0.85;
-            animation: fadeInUp 1s ease-out 0.5s both;
+            animation: fadeInUp 1s ease-out 1s both;
         }
 
         .hero-description {
@@ -245,18 +271,77 @@
             margin-bottom: 48px;
             opacity: 0.75;
             line-height: 1.6;
-            animation: fadeInUp 1s ease-out 1s both;
+            animation: fadeInUp 1s ease-out 1.4s both;
         }
 
+        /* Essential animations for interactivity */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
                 transform: translateY(30px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { 
+                transform: scale(1); 
+            }
+            50% { 
+                transform: scale(1.05); 
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Smooth animations for mobile */
+        @media (max-width: 768px) {
+            .skill-icon:hover {
+                transform: translateY(-3px) rotate(4deg) scale(1.05);
+            }
+            
+            .nav-links a:hover,
+            .theme-toggle:hover {
+                transform: translateY(-2px) scale(1.03) translateZ(0);
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+                transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            }
+            
+            .nav-links a:active,
+            .theme-toggle:active {
+                transform: translateY(0) scale(1.01) translateZ(0);
+                transition: all 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            }
+            
+            .btn:hover {
+                transform: translateY(-2px);
             }
         }
 
@@ -265,7 +350,7 @@
             gap: 24px;
             justify-content: center;
             flex-wrap: wrap;
-            animation: fadeInUp 1s ease-out 1.5s both;
+            animation: fadeInUp 1s ease-out 1.8s both;
         }
 
         .btn {
@@ -277,16 +362,17 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            transform: translateZ(0); /* Hardware acceleration */
         }
 
         .btn-primary {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+            color: var(--bg-color);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
 
         .btn-secondary {
@@ -294,26 +380,47 @@
             color: var(--text-color);
             backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
+            transform: translateY(-4px) translateZ(0);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
         }
 
-        .btn::before {
+        .btn:active {
+            transform: translateY(-1px) translateZ(0);
+            transition: all 0.1s ease;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+        }
+
+        .btn-secondary:hover {
+            background: var(--glass-bg);
+            border-color: var(--secondary-color);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Add ripple effect */
+        .btn::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease;
         }
 
-        .btn:hover::before {
-            left: 100%;
+        .btn:active::after {
+            width: 300px;
+            height: 300px;
         }
 
         .section {
@@ -382,7 +489,7 @@
 
         .about-text:hover {
             transform: translateY(-8px);
-            box-shadow: 0 16px 40px rgba(99, 102, 241, 0.2);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
         }
 
         .about-image {
@@ -395,13 +502,13 @@
             border-radius: 50%;
             object-fit: cover;
             border: 5px solid var(--primary-color);
-            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
             transition: all 0.5s ease;
         }
 
         .profile-img:hover {
             transform: scale(1.05) rotate(5deg);
-            box-shadow: 0 30px 60px rgba(99, 102, 241, 0.5);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
         }
 
 
@@ -419,7 +526,7 @@
             overflow: hidden;
             background: var(--glass-bg);
             backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--glass-border);
+            border: 0.5px solid var(--glass-border);
             box-shadow: var(--glass-shadow);
         }
 
@@ -442,7 +549,7 @@
 
         .skill-category:hover {
             transform: translateY(-8px);
-            box-shadow: 0 16px 40px rgba(99, 102, 241, 0.2);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
         }
 
         .skill-title {
@@ -450,13 +557,16 @@
             margin-bottom: 24px;
             color: var(--primary-color);
             font-weight: 600;
+            text-align: center;
         }
 
         .skill-icons {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 16px;
             margin-bottom: 24px;
+            justify-content: center;
+            align-items: flex-start;
         }
 
         .skill-icon {
@@ -468,16 +578,56 @@
             align-items: center;
             justify-content: center;
             font-size: 1.6rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             backdrop-filter: var(--glass-blur);
             border: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            /* No animation by default - still like water */
+        }
+
+        /* Beating animation only on hover */
+        @keyframes skillIconBeat {
+            0%, 100% {
+                transform: translateY(-6px) rotate(8deg) scale(1.1);
+            }
+            50% {
+                transform: translateY(-6px) rotate(8deg) scale(1.3);
+            }
         }
 
         .skill-icon:hover {
-            transform: translateY(-4px) rotate(5deg);
-            background: var(--primary-color);
-            color: white;
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+            background: var(--glass-border);
+            color: var(--text-color);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+            animation: skillIconBeat 0.8s ease-in-out infinite;
+        }
+
+        .skill-icon:active {
+            transform: translateY(-2px) rotate(4deg) scale(1.05);
+            transition: all 0.1s ease;
+        }
+
+        .skill-icon-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            min-width: 80px;
+            flex: 1 1 auto;
+            max-width: 100px;
+        }
+
+        .skill-icon-label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-color);
+            opacity: 0.9;
+            text-align: center;
+            line-height: 1.3;
+            max-width: 80px;
+            word-wrap: break-word;
         }
 
         .skill-tech {
@@ -500,7 +650,7 @@
         .project-card {
             padding: 30px;
             border-radius: 20px;
-            transition: all 0.5s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
             cursor: pointer;
@@ -509,21 +659,24 @@
         .project-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.5s;
-        }
-
-        .project-card:hover::before {
-            left: 100%;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            opacity: 0.01;
+            transform: rotate(0deg);
+            transition: all 0.6s ease;
         }
 
         .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(99, 102, 241, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-card:hover::before {
+            transform: rotate(180deg);
+            opacity: 0.03;
         }
 
         .project-title {
@@ -603,7 +756,7 @@
         .form-group textarea:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             transform: translateY(-2px);
         }
 
@@ -651,7 +804,7 @@
             left: 50%;
             transform: translateX(-50%);
             background: var(--primary-color);
-            color: white;
+            color: var(--bg-color);
             padding: 8px 12px;
             border-radius: 8px;
             font-size: 0.85rem;
@@ -669,29 +822,29 @@
 
         .social-link:hover {
             background: var(--primary-color);
-            color: white;
+            color: var(--bg-color);
             transform: translateY(-6px);
-            box-shadow: 0 16px 32px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
         }
 
         .social-link.twitter:hover {
-            background: #1da1f2;
+            background: var(--secondary-color);
         }
 
         .social-link.linkedin:hover {
-            background: #0077b5;
+            background: var(--secondary-color);
         }
 
         .social-link.instagram:hover {
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
         }
 
         .social-link.email:hover {
-            background: #ea4335;
+            background: var(--accent-color);
         }
 
         .social-link.github:hover {
-            background: #333;
+            background: var(--primary-color);
         }
 
         .parallax-bg {
@@ -701,37 +854,77 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
-            opacity: 0.02;
+            opacity: 0.01;
             z-index: -3;
+            animation: parallaxShift 20s ease-in-out infinite;
         }
 
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: var(--text-color);
-            opacity: 0.7;
-            animation: bounce 3s infinite;
-            font-size: 1rem;
+        @keyframes parallaxShift {
+            0%, 100% {
+                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+                transform: translateX(0px) translateY(0px) scale(1);
+            }
+            33% {
+                background: linear-gradient(225deg, var(--secondary-color), var(--accent-color), var(--primary-color));
+                transform: translateX(-10px) translateY(5px) scale(1.02);
+            }
+            66% {
+                background: linear-gradient(315deg, var(--accent-color), var(--primary-color), var(--secondary-color));
+                transform: translateX(5px) translateY(-8px) scale(1.01);
+            }
         }
 
-        @keyframes bounce {
+        /* Theme-specific parallax adjustments */
+        [data-theme="dark"] .parallax-bg {
+            opacity: 0.02;
+        }
 
-            0%,
-            20%,
-            50%,
-            80%,
-            100% {
-                transform: translateX(-50%) translateY(0);
+        [data-theme="light"] .parallax-bg {
+            opacity: 0.008;
+        }
+
+        /* Smooth transitions for theme changes */
+        .gradient-mesh,
+        .animated-lines,
+        .parallax-bg {
+            transition: opacity 0.6s ease, background 0.6s ease;
+        }
+
+        /* Interactive animation enhancements */
+        .hero:hover .shape {
+            animation-duration: 8s;
+            opacity: 0.06;
+        }
+
+        [data-theme="dark"] .hero:hover .shape {
+            opacity: 0.1;
+        }
+
+        [data-theme="light"] .hero:hover .shape {
+            opacity: 0.05;
+        }
+
+        /* Smooth transitions for theme changes */
+        .shape,
+        .decoration-shape,
+        .parallax-bg {
+            transition: opacity 0.6s ease, background 0.6s ease;
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            .shape,
+            .decoration-shape,
+            .parallax-bg {
+                animation: none !important;
             }
-
-            40% {
-                transform: translateX(-50%) translateY(-8px);
+            
+            .shape {
+                opacity: 0.01 !important;
             }
-
-            60% {
-                transform: translateX(-50%) translateY(-4px);
+            
+            .decoration-shape {
+                opacity: 0.005 !important;
             }
         }
 
@@ -765,18 +958,32 @@
     font-size: 1rem;
     padding: 10px 12px;
     border-radius: 15px;
-    backdrop-filter: none; /* Disable backdrop-filter */
-    transition: background 0.3s ease, color 0.3s ease; /* Keep simple transitions */
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform: translateZ(0); /* Hardware acceleration */
+    will-change: transform, box-shadow;
+    backface-visibility: hidden;
   }
 
   .nav-links a:hover,
   .theme-toggle:hover {
-    transform: none; /* Remove transform for performance */
-    box-shadow: none; /* Remove shadow for performance */
+    transform: translateY(-2px) scale(1.03) translateZ(0);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .nav-links a:active,
+  .theme-toggle:active {
+    transform: translateY(0) scale(1.01) translateZ(0);
+    transition: all 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
   .hero {
     padding: 0 16px;
+  }
+
+  .hero-greeting {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    margin-bottom: 8px;
   }
 
   .hero-content {
@@ -784,26 +991,31 @@
   }
 
   .cta-buttons {
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
-    gap: 16px;
-    animation: fadeInUp 1s ease-out 1.5s both;
+    gap: 12px;
+    animation: fadeInUp 1s ease-out 1.8s both;
+    flex-wrap: wrap;
   }
 
   .btn {
-    width: 100%;
-    max-width: 280px;
+    width: auto;
+    padding: 15px 30px;
     justify-content: center;
-    transition: background 0.3s ease, color 0.3s ease; /* Keep simple transitions */
+    font-size: 1rem;
+    border-radius: 20px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .btn:hover {
-    transform: none; /* Remove transform */
-    box-shadow: none; /* Remove shadow */
+    transform: translateY(-2px) translateZ(0); /* Reduced movement for mobile */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   }
 
-  .btn::before {
-    display: none; /* Disable shine effect */
+  .btn:active {
+    transform: translateY(0) translateZ(0);
+    transition: all 0.1s ease;
   }
 
   .section {
@@ -839,12 +1051,12 @@
   .profile-img {
     width: 280px;
     height: 280px;
-    transition: none; /* Disable transitions */
+    transition: all 0.4s ease; /* Enable transitions for mobile */
   }
 
   .profile-img:hover {
-    transform: none; /* Disable hover effect */
-    box-shadow: none; /* Disable shadow */
+    transform: scale(1.03) rotate(3deg); /* Reduced effect for mobile */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
   }
 
   /* Optimized Skills Section */
@@ -856,7 +1068,7 @@
   .skill-category {
     padding: 32px 24px;
     backdrop-filter: none; /* Disable backdrop-filter */
-    transition: background 0.3s ease, color 0.3s ease; /* Keep simple transitions */
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth like desktop */
   }
 
   .skill-category::before {
@@ -864,8 +1076,8 @@
   }
 
   .skill-category:hover {
-    transform: none; /* Remove transform */
-    box-shadow: none; /* Remove shadow */
+    transform: translateY(-6px); /* Smooth lift effect like desktop */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
   }
 
   .skill-icon {
@@ -873,12 +1085,40 @@
     height: 52px;
     font-size: 1.4rem;
     backdrop-filter: none; /* Disable backdrop-filter */
-    transition: background 0.3s ease, color 0.3s ease; /* Keep simple transitions */
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth like desktop */
+    /* No animation by default - still like water */
+  }
+
+  .skill-icons {
+    gap: 14px;
+    justify-content: center;
+  }
+
+  .skill-icon-container {
+    min-width: 72px;
+    max-width: 90px;
+  }
+
+  .skill-icon-label {
+    font-size: 0.8rem;
+    max-width: 72px;
   }
 
   .skill-icon:hover {
-    transform: none; /* Remove transform */
-    box-shadow: none; /* Remove shadow */
+    background: var(--glass-border);
+    color: var(--text-color);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    animation: skillIconBeatMobile 0.8s ease-in-out infinite; /* Beat continuously on hover */
+  }
+
+  /* Mobile beating animation */
+  @keyframes skillIconBeatMobile {
+    0%, 100% {
+      transform: translateY(-4px) rotate(6deg) scale(1.1);
+    }
+    50% {
+      transform: translateY(-4px) rotate(6deg) scale(1.3);
+    }
   }
 
   /* Optimized Projects Section */
@@ -890,22 +1130,28 @@
   .project-card {
     padding: 32px 24px;
     backdrop-filter: none; /* Disable backdrop-filter */
-    transition: background 0.3s ease, color 0.3s ease; /* Keep simple transitions */
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth like desktop */
   }
 
   .project-card::before {
-    display: none; /* Disable shine effect */
+    display: none; /* Disable background gradient effect */
   }
 
   .project-card:hover {
-    transform: none; /* Remove transform */
-    box-shadow: none; /* Remove shadow */
+    transform: translateY(-6px); /* Smooth lift effect like desktop */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
   }
 
   .contact-form {
     padding: 32px 24px;
     margin: 0 16px;
     backdrop-filter: none; /* Disable backdrop-filter */
+  }
+
+  .contact-form .btn {
+    padding: 15px 30px;
+    font-size: 1rem;
+    border-radius: 20px;
   }
 
   .form-group {
@@ -941,12 +1187,25 @@
     display: none; /* Disable tooltip */
   }
 
-  .floating-shapes {
-    display: none; /* Already disabled in original */
+  /* Optimized animations for mobile */
+  .gradient-mesh {
+    opacity: 0.03;
+    filter: blur(20px);
+    animation-duration: 30s;
   }
 
-  .scroll-indicator {
-    animation: none; /* Already disabled in original */
+  .animated-lines {
+    display: block;
+  }
+
+  .line {
+    opacity: 0.05;
+    animation-duration: 20s;
+  }
+
+  .parallax-bg {
+    animation: none; /* Disable parallax animation on mobile */
+    opacity: 0.02;
   }
 }
 
@@ -967,6 +1226,20 @@
     transition: background 0.3s ease, color 0.3s ease; /* Keep simple transitions */
   }
 
+  /* Further optimize animations for very small screens */
+  .shape:nth-child(n+4) {
+    display: none; /* Show only 3 shapes on very small screens */
+  }
+
+  .shape {
+    animation-duration: 6s; /* Even faster for small screens */
+    opacity: 0.015; /* Further reduced opacity */
+  }
+
+  .parallax-bg {
+    opacity: 0.003; /* Almost invisible on small screens */
+  }
+
   .nav-content {
     gap: 6px;
   }
@@ -983,6 +1256,21 @@
     padding: 80px 12px 40px;
   }
 
+  .btn {
+    padding: 15px 30px;
+    font-size: 1rem;
+    border-radius: 20px;
+  }
+
+  .cta-buttons {
+    gap: 10px;
+  }
+
+  .contact-form .btn {
+    padding: 15px 30px;
+    font-size: 1rem;
+  }
+
   .about-text {
     padding: 24px 20px;
     backdrop-filter: none; /* Ensure backdrop-filter is off */
@@ -996,13 +1284,38 @@
   .skill-category {
     padding: 24px 20px;
     backdrop-filter: none; /* Ensure backdrop-filter is off */
-    transition: background 0.3s ease, color 0.3s ease; /* Keep simple transitions */
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth like desktop */
   }
 
   .project-card {
     padding: 24px 20px;
     backdrop-filter: none; /* Ensure backdrop-filter is off */
-    transition: background 0.3s ease, color 0.3s ease; /* Keep simple transitions */
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth like desktop */
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px); /* Smooth lift effect */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Smooth shadow */
+  }
+
+  .skill-category:hover {
+    transform: translateY(-4px); /* Smooth lift effect */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Smooth shadow */
+  }
+
+  .skill-icons {
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .skill-icon-container {
+    min-width: 64px;
+    max-width: 80px;
+  }
+
+  .skill-icon-label {
+    font-size: 0.75rem;
+    max-width: 64px;
   }
 
   .contact-form {
@@ -1032,12 +1345,8 @@
 
     <section id="home" class="hero">
         <div class="hero-bg"></div>
-        <div class="floating-shapes">
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-        </div>
         <div class="hero-content">
+            <div class="hero-greeting">Hi there! I'm</div>
             <h1 class="hero-title">Shubham Singh</h1>
             <h2 class="hero-subtitle">Full Stack Developer & Tech Enthusiast</h2>
             <p class="hero-description">
@@ -1048,9 +1357,6 @@
                 <a href="#projects" class="btn btn-primary">View My Work</a>
                 <a href="#contact" class="btn btn-secondary">Get In Touch</a>
             </div>
-        </div>
-        <div class="scroll-indicator">
-            <span>↓ Scroll to explore</span>
         </div>
     </section>
 
@@ -1085,40 +1391,97 @@
                 <div class="skill-category glass">
                     <h3 class="skill-title">Frontend & Design</h3>
                     <div class="skill-icons">
-                        <div class="skill-icon">⚛️</div>
-                        <div class="skill-icon">📱</div>
-                        <div class="skill-icon">📝</div>
-                        <div class="skill-icon">🎨</div>
-                        <div class="skill-icon">🌐</div>
-                        <div class="skill-icon">💅</div>
-                        <div class="skill-icon">🎯</div>
+                        <div class="skill-icon-container">
+                            <div class="skill-icon">⚛️</div>
+                            <div class="skill-icon-label">React</div>
+                        </div>
+                        <div class="skill-icon-container">
+                            <div class="skill-icon">📱</div>
+                            <div class="skill-icon-label">Next.js</div>
+                        </div>
+                        <div class="skill-icon-container">
+                            <div class="skill-icon">📝</div>
+                            <div class="skill-icon-label">TypeScript</div>
+                        </div>
+                        <div class="skill-icon-container">
+                            <div class="skill-icon">🎨</div>
+                            <div class="skill-icon-label">CSS3</div>
+                        </div>
+                        <div class="skill-icon-container">
+                            <div class="skill-icon">🌐</div>
+                            <div class="skill-icon-label">HTML5</div>
+                        </div>
+                        <div class="skill-icon-container">
+                            <div class="skill-icon">💅</div>
+                            <div class="skill-icon-label">Tailwind</div>
+                        </div>
+                        <div class="skill-icon-container">
+                            <div class="skill-icon">🎯</div>
+                            <div class="skill-icon-label">Figma</div>
+                        </div>
                     </div>
-                    <p>React, Next.js, TypeScript, Tailwind CSS, HTML5, CSS3, Figma</p>
                 </div>
                 <div class="skill-category glass">
                     <h3 class="skill-title">Backend & Database</h3>
                     <div class="skill-icons">
-                        <div class="skill-icon">🟢</div>
-                        <div class="skill-icon">⚡</div>
-                        <div class="skill-icon">🐍</div>
-                        <div class="skill-icon">🍃</div>
-                        <div class="skill-icon">🐬</div>
-                        <div class="skill-icon">🐘</div>
+                        <div class="skill-icon-container">
+                            <div class="skill-icon">🟢</div>
+                            <div class="skill-icon-label">Node.js</div>
+                        </div>
+                        <div class="skill-icon-container">
+                            <div class="skill-icon">⚡</div>
+                            <div class="skill-icon-label">C#</div>
+                        </div>
+                        <div class="skill-icon-container">
+                            <div class="skill-icon">🐍</div>
+                            <div class="skill-icon-label">Python</div>
+                        </div>
+                        <div class="skill-icon-container">
+                            <div class="skill-icon">🍃</div>
+                            <div class="skill-icon-label">MongoDB</div>
+                        </div>
+                        <div class="skill-icon-container">
+                            <div class="skill-icon">🐬</div>
+                            <div class="skill-icon-label">MySQL</div>
+                        </div>
+                        <div class="skill-icon-container">
+                            <div class="skill-icon">🐘</div>
+                            <div class="skill-icon-label">PostgreSQL</div>
+                        </div>
                     </div>
-                    <p>Node.js, C#, Python, MongoDB, MySQL, PostgreSQL</p>
                 </div>
                 <div class="skill-category glass">
                     <h3 class="skill-title">DevOps & Tools</h3>
                     <div class="skill-icons">
-                        <div class="skill-icon">☁️</div>
-                        <div class="skill-icon">🔷</div>
-                        <div class="skill-icon">🐳</div>
-                        <div class="skill-icon">🔧</div>
-                        <div class="skill-icon">📱</div>
-                        <div class="skill-icon">🎮</div>
-                        <div class="skill-icon">🔌</div>
+                        <div class="skill-icon-container">
+                            <div class="skill-icon">☁️</div>
+                            <div class="skill-icon-label">AWS</div>
+                        </div>
+                        <div class="skill-icon-container">
+                            <div class="skill-icon">🔷</div>
+                            <div class="skill-icon-label">Azure</div>
+                        </div>
+                        <div class="skill-icon-container">
+                            <div class="skill-icon">🐳</div>
+                            <div class="skill-icon-label">Docker</div>
+                        </div>
+                        <div class="skill-icon-container">
+                            <div class="skill-icon">🔧</div>
+                            <div class="skill-icon-label">Git</div>
+                        </div>
+                        <div class="skill-icon-container">
+                            <div class="skill-icon">📱</div>
+                            <div class="skill-icon-label">GitHub</div>
+                        </div>
+                        <div class="skill-icon-container">
+                            <div class="skill-icon">🎮</div>
+                            <div class="skill-icon-label">Unity</div>
+                        </div>
+                        <div class="skill-icon-container">
+                            <div class="skill-icon">🔌</div>
+                            <div class="skill-icon-label">Arduino</div>
+                        </div>
                     </div>
-                    <p>AWS, Azure, Docker, Git, GitHub, VS Code, Unity, Arduino</p>
                 </div>
             </div>
         </div>
@@ -1258,29 +1621,115 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Parallax effect for background elements
+// Optimized scroll event with throttling for smoother navbar animations
+let ticking = false;
+
+function updateNavbar() {
+    const navbar = document.querySelector('.navbar');
+    
+    requestAnimationFrame(() => {
+        if (window.scrollY > 100) {
+            navbar.style.background = 'rgba(255, 255, 255, 0.1)';
+            navbar.style.backdropFilter = 'blur(20px)';
+            navbar.style.transform = 'translateX(-50%) translateY(-2px)';
+        } else {
+            navbar.style.background = 'var(--glass-bg)';
+            navbar.style.backdropFilter = 'blur(20px)';
+            navbar.style.transform = 'translateX(-50%) translateY(0)';
+        }
+        ticking = false;
+    });
+}
+
 window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const rate = scrolled * -0.5;
-
-    const parallaxBg = document.querySelector('.parallax-bg');
-    if (parallaxBg) {
-        parallaxBg.style.transform = `translateY(${rate}px)`;
+    if (!ticking) {
+        requestAnimationFrame(updateNavbar);
+        ticking = true;
     }
+}, { passive: true });
 
-    // Floating shapes parallax
-    const shapes = document.querySelectorAll('.shape');
-    shapes.forEach((shape, index) => {
-        const speed = (index + 1) * 0.3;
-        shape.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.1}deg)`;
+// Enhanced animations for elements
+function initializeAnimations() {
+    // Skill icon animations
+    document.querySelectorAll('.skill-icon').forEach(icon => {
+        icon.addEventListener('mouseenter', function() {
+            this.style.animation = 'pulse 0.6s ease-in-out';
+        });
+        
+        icon.addEventListener('mouseleave', function() {
+            this.style.animation = '';
+        });
+        
+        // Add touch support for mobile
+        icon.addEventListener('touchstart', function() {
+            this.style.transform = 'translateY(-4px) rotate(6deg) scale(1.08)';
+        });
+        
+        icon.addEventListener('touchend', function() {
+            this.style.transform = '';
+        });
+    });
+    
+    // Profile image animations for mobile
+    const profileImg = document.querySelector('.profile-img');
+    if (profileImg) {
+        profileImg.addEventListener('touchstart', function() {
+            this.style.transform = 'scale(1.03) rotate(3deg)';
+            this.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.15)';
+        });
+        
+        profileImg.addEventListener('touchend', function() {
+            this.style.transform = '';
+            this.style.boxShadow = '';
+        });
+    }
+    
+    // Enhanced button feedback
+    document.querySelectorAll('.btn').forEach(btn => {
+        btn.addEventListener('mousedown', function() {
+            this.style.transform = 'translateY(-1px) scale(0.98)';
+        });
+        
+        btn.addEventListener('mouseup', function() {
+            this.style.transform = '';
+        });
+    });
+}
+
+// Smooth scroll-triggered animations
+function observeElements() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
     });
 
-    // Morphing shapes parallax
-    const morphingShapes = document.querySelectorAll('.morphing-shape');
-    morphingShapes.forEach((shape, index) => {
-        const speed = (index + 1) * 0.2;
-        shape.style.transform += ` translateY(${scrolled * speed}px)`;
+    // Observe sections and cards
+    document.querySelectorAll('.section').forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(30px)';
+        element.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+        observer.observe(element);
     });
+    
+    // Observe skill icons for simple fade-in
+    document.querySelectorAll('.skill-icon').forEach(icon => {
+        icon.style.opacity = '1';
+        icon.style.transform = 'translateY(0)';
+        icon.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+    });
+}
+
+// Initialize animations when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    initializeAnimations();
+    observeElements();
 });
 
 // Intersection Observer for animations
@@ -1292,31 +1741,10 @@ const observerOptions = {
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+            entry.target.classList.add('animate-in');
         }
     });
 }, observerOptions);
-
-// Observe all sections for scroll animations
-document.querySelectorAll('.section').forEach(section => {
-    section.style.opacity = '0';
-    section.style.transform = 'translateY(30px)';
-    section.style.transition = 'all 0.8s ease-out';
-    observer.observe(section);
-});
-
-// Navbar background on scroll
-window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 100) {
-        navbar.style.background = 'rgba(255, 255, 255, 0.1)';
-        navbar.style.backdropFilter = 'blur(20px)';
-    } else {
-        navbar.style.background = 'var(--glass-bg)';
-        navbar.style.backdropFilter = 'blur(20px)';
-    }
-});
 
 // Enhanced skill icon interactions
 document.querySelectorAll('.skill-icon').forEach(icon => {
@@ -1329,34 +1757,17 @@ document.querySelectorAll('.skill-icon').forEach(icon => {
     });
 });
 
-// Project card tilt effect (only for desktop)
+// Project card effects - Disabled for professional appearance
 function applyProjectCardTilt() {
-    if (window.innerWidth > 768) {
-        document.querySelectorAll('.project-card').forEach(card => {
-            card.addEventListener('mousemove', function (e) {
-                const rect = this.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-
-                const rotateX = (y - centerY) / 10;
-                const rotateY = (centerX - x) / 10;
-
-                this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
-            });
-
-            card.addEventListener('mouseleave', function () {
-                this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-            });
-        });
-    }
+    // Tilt effects disabled for elegant and professional look
+    // document.querySelectorAll('.project-card').forEach(card => {
+    //     // Effects removed for cleaner appearance
+    // });
 }
 
-// Apply tilt effect on load and on window resize
-applyProjectCardTilt();
-window.addEventListener('resize', applyProjectCardTilt);
+// Apply tilt effect on load and on window resize - Disabled for professional look
+// applyProjectCardTilt();
+// window.addEventListener('resize', applyProjectCardTilt);
 
 // Contact form handling
 document.querySelector('form').addEventListener('submit', function (e) {
@@ -1434,64 +1845,6 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
-
-// Enhanced scroll indicator
-const scrollIndicator = document.querySelector('.scroll-indicator');
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 100) {
-        scrollIndicator.style.opacity = '0';
-    } else {
-        scrollIndicator.style.opacity = '1';
-    }
-});
-
-// Add random floating particles
-function createParticle() {
-    const particle = document.createElement('div');
-    particle.style.cssText = `
-        position: fixed;
-        width: 4px;
-        height: 4px;
-        background: var(--primary-color);
-        border-radius: 50%;
-        pointer-events: none;
-        opacity: 0.3;
-        z-index: -1;
-        left: ${Math.random() * 100}vw;
-        animation: particleFloat ${5 + Math.random() * 10}s linear infinite;
-    `;
-
-    document.body.appendChild(particle);
-
-    setTimeout(() => {
-        particle.remove();
-    }, 15000);
-}
-
-// Add particle animation
-const particleStyle = document.createElement('style');
-particleStyle.textContent = `
-    @keyframes particleFloat {
-        from {
-            transform: translateY(100vh) rotate(0deg);
-            opacity: 0;
-        }
-        10% {
-            opacity: 0.3;
-        }
-        90% {
-            opacity: 0.3;
-        }
-        to {
-            transform: translateY(-100px) rotate(360deg);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(particleStyle);
-
-// Create particles periodically
-setInterval(createParticle, 2000);
 
 // Initialize theme based on user preference
 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
